@@ -1,0 +1,43 @@
+.form {
+  display: flex;
+  margin: 10px;
+  margin-left: 15px;
+}
+
+.search-bar {
+  border-radius: 1px;
+  background: #fff;
+}
+
+.search-bar, .form {
+  border-radius: 2px;
+  width: 80%;
+}
+
+.search-bar, .btn {
+  border-radius: 2px;
+  border-color: #d3d3d3;
+  background: #f8f8f8;
+  width: 20%;
+  margin-left: -1px;
+}
+
+.search-bar, .btn:hover {
+  border-color: #c6c6c6;
+  background: #f0f0f0;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.10);
+}
+
+#movie-list {
+  padding: 10px;
+}
+
+.movie {
+  border: 3px solid black;
+  background-color: grey;
+  border-radius: 5px;
+  height: 6vmax;
+  display: flex;
+  align-items: center;
+  padding-left: 25px;
+}
