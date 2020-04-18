@@ -103,7 +103,7 @@ class App extends React.Component {
           <div><h2>Movie List</h2></div>
           <SearchMovies movies={this.state.movies} searchMovies={this.searchMovies}/>
           <AddMovie movies={this.state.movies} addMovie={this.addMovie}/>
-          <div>
+          <div className="clear-nav">
             {filteredClear}
           </div>
         </nav>

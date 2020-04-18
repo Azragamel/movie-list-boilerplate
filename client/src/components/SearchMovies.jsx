@@ -22,6 +22,9 @@ class SearchMovies extends React.Component {
     event.preventDefault();
     const { searchMovies } = this.props;
     searchMovies(this.state);
+    this.setState({
+      title: ''
+    })
   }
 
   render() {
@@ -30,7 +33,7 @@ class SearchMovies extends React.Component {
       <form className="form" onSubmit={this.handleSubmit}>
         <input className="search-bar" name="title" type="text" value={title} onChange={this.handleChange}/>
         <button className="btn">
-          <span>Search</span>
+          <i className="fas fa-fast-forward"></i>
         </button>
       </form>
     )

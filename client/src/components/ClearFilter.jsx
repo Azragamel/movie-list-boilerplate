@@ -8,7 +8,7 @@ class ClearFilter extends React.Component {
   render() {
     const { clear } = this.props;
     return (
-      <a href="#" className="clear" onClick={clear}>Clear Filter</a>
+      <a href="#" className="clear" onClick={clear}><i className="fas fa-fast-backward"></i></a>
     );
   }
 }

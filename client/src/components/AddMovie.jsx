@@ -23,6 +23,9 @@ class AddMovie extends React.Component {
     event.preventDefault();
     const { addMovie } = this.props;
     addMovie(this.state);
+    this.setState({
+      title: ''
+    })
   }
 
   render() {
@@ -31,7 +34,7 @@ class AddMovie extends React.Component {
       <form className="form" onSubmit={this.handleSubmit}>
         <input className="search-bar" name="title" type="text" value={title} onChange={this.handleChange}/>
         <button className="btn">
-          <span>Add Movie</span>
+          <i className="fas fa-play"></i>
         </button>
       </form>
     );
