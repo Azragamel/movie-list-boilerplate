@@ -4,14 +4,7 @@ import MovieList from './MovieList.jsx';
 import AddMovie from './AddMovie.jsx';
 import SearchMovies from './SearchMovies.jsx';
 import ClearFilter from './ClearFilter.jsx';
-
-// var movies = [
-//   {title: 'Mean Girls'},
-//   {title: 'Hackers'},
-//   {title: 'The Grey'},
-//   {title: 'Sunshine'},
-//   {title: 'Ex Machina'},
-// ];
+import WatchedList from './WatchedList.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,12 +13,26 @@ class App extends React.Component {
     this.state = {
       movies: [],
       filteredMovies: [],
-      filtered: false
+      filtered: false,
+      watched: false
     };
 
     this.addMovie = this.addMovie.bind(this);
     this.searchMovies = this.searchMovies.bind(this);
     this.clearFilter = this.clearFilter.bind(this);
+    this.watched = this.watched.bind(this);
+    this.unwatched = this.unwatched.bind(this);
+    this.update = this.update.bind(this);
+  }
+
+  update() {
+    $.ajax({
+      url: '/movies',
+      type: 'GET',
+      success: (movies) => {
+        this.setState({ movies });
+      }
+    })
   }
 
   componentDidMount() {
@@ -50,7 +57,7 @@ class App extends React.Component {
     const state = [...this.state.movies];
     let filteredMovies = [];
     for (let movie of state) {
-      if (movie.title.toLowerCase() === title.toLowerCase()) {
+      if (movie.title.toLowerCase().split(' ').join('').includes(title.toLowerCase().split(' ').join(''))) {
         filteredMovies.push(movie);
       }
     }
@@ -71,6 +78,7 @@ class App extends React.Component {
       data: JSON.stringify(movie),
       success: (data) => {
         movie.id = data.insertId;
+        movie.watched = 0;
         const movies = [...this.state.movies];
         movies.push(movie);
         this.setState({ movies });
@@ -83,7 +91,19 @@ class App extends React.Component {
     const {filteredMovies} = this.state;
     this.setState({
       filteredMovies: [],
-      filtered: false
+      filtered: false,
+    })
+  }
+
+  watched() {
+    this.setState({
+      watched: true
+    })
+  }
+
+  unwatched() {
+    this.setState({
+      watched: false
     })
   }
 
@@ -91,13 +111,22 @@ class App extends React.Component {
     const {movies} = this.state;
     const {filteredMovies} = this.state;
     const {filtered} = this.state;
+    const {watched} = this.state;
     let filteredFlicks;
     let filteredClear;
 
-    if (filteredMovies.length) {
-      filteredFlicks = <MovieList movies={filteredMovies}/>
+    if (watched) {
+      if (filteredMovies.length) {
+        filteredFlicks = <WatchedList movies={filteredMovies} update={this.update}/>
+      } else {
+        filteredFlicks = <WatchedList movies={movies} update={this.update}/>
+      }
     } else {
-      filteredFlicks = <MovieList movies={movies}/>
+      if (filteredMovies.length) {
+        filteredFlicks = <MovieList movies={filteredMovies} update={this.update}/>
+      } else {
+        filteredFlicks = <MovieList movies={movies} update={this.update}/>
+      }
     }
 
     if (filtered) {
@@ -111,6 +140,7 @@ class App extends React.Component {
           <SearchMovies movies={this.state.movies} searchMovies={this.searchMovies}/>
           <AddMovie movies={this.state.movies} addMovie={this.addMovie}/>
           <div className="clear-nav">
+            <div className="watch-nav"><button className="all-movies" onClick={this.unwatched}>Unwatched</button><button className="watched-list" onClick={this.watched}>Watched</button></div>
             {filteredClear}
           </div>
         </nav>

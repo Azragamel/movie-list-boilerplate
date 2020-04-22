@@ -29,6 +29,7 @@ class Watched extends React.Component {
           })
         }
       })
+      this.props.update();
     } else {
       this.props.movie.watched = 0;
       $.ajax({
@@ -42,6 +43,7 @@ class Watched extends React.Component {
           })
         }
       })
+      this.props.update();
     }
   }
 

@@ -1,6 +1,7 @@
 import React from 'react';
-import MovieListEntry from './MovieListEntry.jsx'
-class MovieList extends React.Component {
+import MovieListEntry from './MovieListEntry.jsx';
+
+class WatchedList extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -8,15 +9,15 @@ class MovieList extends React.Component {
   render() {
     const { movies } = this.props;
     const { update } = this.props;
-    let unwatched = [];
+    let watched = [];
     movies.forEach((movie) => {
-      if (movie.watched === 0) {
-        unwatched.push(movie);
+      if (movie.watched === 1) {
+        watched.push(movie);
       }
     });
     return (
       <div id="movie-list">
-        {unwatched.map((movie, i) =>
+        {watched.map((movie, i) =>
           <MovieListEntry
             key={movie + i}
             movie={movie}
@@ -28,5 +29,4 @@ class MovieList extends React.Component {
   }
 }
 
-export default MovieList;
-
+export default WatchedList;

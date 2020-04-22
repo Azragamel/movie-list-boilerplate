@@ -7,10 +7,11 @@ class MovieListEntry extends React.Component {
   }
 
   render() {
+    const { update } = this.props;
     const { movie } = this.props;
     return (
       <div className="movie">
-        <div>{movie.title}</div><Watched movie={movie}/>
+        <div>{movie.title}</div><Watched movie={movie} update={update}/>
       </div>
     )
   }
