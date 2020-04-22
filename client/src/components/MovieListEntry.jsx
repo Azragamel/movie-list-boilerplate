@@ -3,21 +3,17 @@ import Watched from './Watched.jsx';
 
 class MovieListEntry extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      toggle: false,
-      movie: this.props.movie
-    }
+    super(props)
   }
 
   render() {
-    const { movie } = this.state;
+    const { movie } = this.props;
     return (
       <div className="movie">
-        <div>{movie.title}</div><Watched/>
+        <div>{movie.title}</div><Watched movie={movie}/>
       </div>
     )
   }
 }
 
-export default MovieListEntry
+export default MovieListEntry;

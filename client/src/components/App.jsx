@@ -39,6 +39,13 @@ class App extends React.Component {
   }
 
   searchMovies(movie) {
+    $.ajax({
+      url: '/movies',
+      type: 'GET',
+      success: (movies) => {
+        this.setState({ movies });
+      }
+    })
     const title = movie.title;
     const state = [...this.state.movies];
     let filteredMovies = [];
@@ -80,6 +87,10 @@ class App extends React.Component {
     })
   }
 
+  // haWatched() {
+
+  // }
+
   render() {
     const {movies} = this.state;
     const {filteredMovies} = this.state;
@@ -89,6 +100,7 @@ class App extends React.Component {
 
     if (filteredMovies.length) {
       filteredFlicks = <MovieList movies={filteredMovies}/>
+      // console.log('filtering:', filteredMovies);
     } else {
       filteredFlicks = <MovieList movies={movies}/>
     }

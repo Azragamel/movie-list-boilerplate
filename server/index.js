@@ -14,23 +14,34 @@ app.get('/movies', (req, res) => {
       console.log('Error: ', err);
       res.status(500).send(err);
     } else {
-      console.log('Great success!');
       res.send(results);
     }
   });
 });
 
 app.post('/movies', (req, res) => {
-  let queryString = `INSERT INTO movies (title) VALUES (?)`;
-  db.query(queryString, [req.body.title], (err, results) => {
-    if (err) {
-      console.log('Error: ', err);
-      res.status(500).send(err);
-    } else {
-      console.log('Great Success!');
-      res.send(results);
-    }
-  });
+  console.log(req.body);
+  let insertQueryString = `INSERT INTO movies (title) VALUES (?)`;
+  let updateQueryString = `UPDATE movies SET movies.watched = (?) WHERE movies.title = (?)`;
+  if (req.body.watched !== undefined) {
+    db.query(updateQueryString, [req.body.watched, req.body.title], (err, results) => {
+      if (err) {
+        console.log('Error: ', err);
+        res.status(500).send(err);
+      } else {
+        res.send(results);
+      }
+    });
+  } else {
+    db.query(insertQueryString, [req.body.title], (err, results) => {
+      if (err) {
+        console.log('Error: ', err);
+        res.status(500).send(err);
+      } else {
+        res.send(results);
+      }
+    });
+  }
 });
 
 app.listen(PORT, () => {

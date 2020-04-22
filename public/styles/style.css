@@ -59,7 +59,7 @@ body {
 
 .clear-nav {
   display: flex;
-  height: 10px;
+  height: 3vh;
   justify-content: flex-end;
 }
 
@@ -70,6 +70,14 @@ body {
 
 .watched {
   font-size: 45px;
-  margin-right: 25px;
+  /* margin-right: 25px; */
   color: black;
+}
+
+.fa-eye-slash {
+  margin-right: 25px;
+}
+
+.fa-eye {
+  margin-right: 28px;
 }
