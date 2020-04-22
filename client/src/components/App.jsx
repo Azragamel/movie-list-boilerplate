@@ -87,10 +87,6 @@ class App extends React.Component {
     })
   }
 
-  // haWatched() {
-
-  // }
-
   render() {
     const {movies} = this.state;
     const {filteredMovies} = this.state;
@@ -100,7 +96,6 @@ class App extends React.Component {
 
     if (filteredMovies.length) {
       filteredFlicks = <MovieList movies={filteredMovies}/>
-      // console.log('filtering:', filteredMovies);
     } else {
       filteredFlicks = <MovieList movies={movies}/>
     }
